@@ -8,6 +8,7 @@ TagManager:
   - River
   - Frog
   - Insect
+  - RiverBody
   layers:
   - Default
   - TransparentFX
