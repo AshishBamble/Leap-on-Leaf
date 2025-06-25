@@ -1696,7 +1696,7 @@ GameObject:
   - component: {fileID: 202913599}
   m_Layer: 0
   m_Name: RiverBody
-  m_TagString: Untagged
+  m_TagString: RiverBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1781,7 +1781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c227ce86c465574b8cdc008e9da0ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frogTag: Player
+  riverBodyTag: RiverBody
 --- !u!65 &202913600
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1970,7 +1970,6 @@ GameObject:
   - component: {fileID: 368375556}
   - component: {fileID: 368375555}
   - component: {fileID: 368375554}
-  - component: {fileID: 368375553}
   - component: {fileID: 368375558}
   - component: {fileID: 368375557}
   m_Layer: 0
@@ -1980,28 +1979,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &368375553
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 368375552}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &368375554
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4013,57 +3990,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 50363122}
   m_SourcePrefab: {fileID: 100100000, guid: f3127e157f7a0a74eb4f71a81a4a221f, type: 3}
---- !u!1 &1628869624
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1628869626}
-  - component: {fileID: 1628869625}
-  m_Layer: 0
-  m_Name: JumpBarController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1628869625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628869624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5ba56c4e2548a04f9c43a3d1819f591, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpBarFill: {fileID: 0}
-  NormalrefillRate: 0.25
-  RiverrefillRate: 0.5
-  NormalrefillCooldown: 1.5
-  RiverrefillCooldown: 1
-  normalEnergyMultiplier: 1
-  riverEnergyMultiplier: 2
---- !u!4 &1628869626
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628869624}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1749362583
 GameObject:
   m_ObjectHideFlags: 0
@@ -4271,7 +4197,7 @@ GameObject:
   - component: {fileID: 2102980262}
   m_Layer: 0
   m_Name: UIManager
-  m_TagString: River
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4306,8 +4232,8 @@ MonoBehaviour:
   jumpBarFill: {fileID: 2147119807}
   NormalrefillRate: 0.25
   RiverrefillRate: 0.15
-  NormalrefillCooldown: 1.5
-  RiverrefillCooldown: 1
+  NormalrefillCooldown: 1
+  RiverrefillCooldown: 1.5
   normalEnergyMultiplier: 0.4
   riverEnergyMultiplier: 0.7
 --- !u!1 &2147119806
@@ -4472,7 +4398,6 @@ SceneRoots:
   - {fileID: 1483395355}
   - {fileID: 52377133}
   - {fileID: 1749362587}
-  - {fileID: 1628869626}
   - {fileID: 551426353}
   - {fileID: 2102980261}
   - {fileID: 1114671379}

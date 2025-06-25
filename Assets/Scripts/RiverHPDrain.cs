@@ -1,32 +1,33 @@
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
 public class RiverHPDrain : MonoBehaviour
 {
-    [Header("Frog Detection")]
-    [SerializeField] private string frogTag = "Player";
+    [SerializeField] private string riverBodyTag = "RiverBody";
+
+    private FrogHPBar frogHPBar;
+
+    private void Awake()
+    {
+        frogHPBar = Object.FindFirstObjectByType<FrogHPBar>();
+        if (frogHPBar == null)
+        {
+            Debug.LogWarning("RiverHPDrain: No FrogHPBar found in scene.");
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(frogTag))
+        if (other.CompareTag(riverBodyTag))
         {
-            FrogHPBar hpBar = other.GetComponent<FrogHPBar>();
-            if (hpBar != null)
-            {
-                hpBar.StartDraining();
-            }
+            frogHPBar?.StartDraining();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(frogTag))
+        if (other.CompareTag(riverBodyTag))
         {
-            FrogHPBar hpBar = other.GetComponent<FrogHPBar>();
-            if (hpBar != null)
-            {
-                hpBar.StopDraining();
-            }
+            frogHPBar?.StopDraining();
         }
     }
 }
