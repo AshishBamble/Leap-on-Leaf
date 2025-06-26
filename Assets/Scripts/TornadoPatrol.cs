@@ -1,10 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class TornadoPatrol : MonoBehaviour
+public class TornadoPatrol : MonoBehaviour, IResettable
 {
     [Header("Patrol Waypoints")]
-    [Tooltip("Empty GameObjects that define the tornado's path")]
     [SerializeField] private List<Transform> waypoints = new List<Transform>();
 
     [Header("Movement Settings")]
@@ -12,14 +11,22 @@ public class TornadoPatrol : MonoBehaviour
     [SerializeField] private float waitTimeAtEnds = 0.5f;
 
     [Header("Spin Settings")]
-    [SerializeField] private float spinSpeed = 360f; // degrees per second
-    [Tooltip("Local axis to spin around (default: Y)")]
+    [SerializeField] private float spinSpeed = 360f;
     [SerializeField] private Vector3 spinAxis = Vector3.up;
 
     private int currentIndex = 0;
     private bool movingForward = true;
     private bool waiting = false;
     private float waitTimer = 0f;
+
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+
+    private void Start()
+    {
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
+    }
 
     private void Update()
     {
@@ -73,5 +80,15 @@ public class TornadoPatrol : MonoBehaviour
     private void SpinTornado()
     {
         transform.Rotate(spinAxis, spinSpeed * Time.deltaTime, Space.Self);
+    }
+
+    public void ResetObject()
+    {
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
+        currentIndex = 0;
+        movingForward = true;
+        waiting = false;
+        waitTimer = 0f;
     }
 }

@@ -1,14 +1,22 @@
 using UnityEngine;
+using System.Collections;
 
 public class TornadoZone : MonoBehaviour
 {
     [Header("Tornado Settings")]
     [SerializeField] private string frogTag = "Player";
-    [SerializeField] private float spinDuration = 1.5f;
+
+    [Tooltip("Min and Max duration the frog will be spun before thrown")]
+    [SerializeField] private float minSpinDuration = 1f;
+    [SerializeField] private float maxSpinDuration = 2f;
+
     [SerializeField] private float throwForce = 4f;
     [SerializeField] private float upwardForce = 2f;
     [SerializeField] private float hpDamage = 0.2f;
     [SerializeField] private float disableControlTime = 1.5f;
+
+    [Tooltip("Cooldown before the tornado can affect the frog again")]
+    [SerializeField] private float reactivationCooldown = 1f;
 
     private bool isActive = true;
 
@@ -23,43 +31,46 @@ public class TornadoZone : MonoBehaviour
         if (frogRb != null)
         {
             StartCoroutine(SpinAndThrowFrog(frogRb, hpBar, frogJump));
-            isActive = false; // Prevent re-trigger
+            isActive = false;
+            Invoke(nameof(Reactivate), reactivationCooldown);
         }
     }
 
-    private System.Collections.IEnumerator SpinAndThrowFrog(Rigidbody frogRb, FrogHPBar hpBar, FrogJump frogJump)
+    private IEnumerator SpinAndThrowFrog(Rigidbody frogRb, FrogHPBar hpBar, FrogJump frogJump)
     {
         if (frogJump != null)
             frogJump.SetJumpEnabled(false);
 
+        float spinDuration = Random.Range(minSpinDuration, maxSpinDuration);
         float timer = 0f;
-
-        // Cache transform
         Transform frogTransform = frogRb.transform;
 
         while (timer < spinDuration)
         {
-            frogTransform.Rotate(Vector3.up, 720f * Time.deltaTime); // Fast spin
+            frogTransform.Rotate(Vector3.up, 720f * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
         }
 
-        // Apply short toss force
         Vector3 randomDirection = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
         Vector3 force = (randomDirection * throwForce) + (Vector3.up * upwardForce);
+
         frogRb.linearVelocity = Vector3.zero;
         frogRb.AddForce(force, ForceMode.Impulse);
 
-        // Damage HP
         if (hpBar != null)
         {
             hpBar.ReduceHealth(hpDamage);
         }
 
-        // Wait before enabling jump again
         yield return new WaitForSeconds(disableControlTime);
 
         if (frogJump != null)
             frogJump.SetJumpEnabled(true);
+    }
+
+    private void Reactivate()
+    {
+        isActive = true;
     }
 }

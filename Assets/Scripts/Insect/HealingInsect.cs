@@ -66,11 +66,11 @@ public class HealingInsect : MonoBehaviour
         if (!faceDirection || pathPoints == null || pathPoints.Count < 2) return;
 
         Vector3 direction = pathPoints[currentPoint].position - transform.position;
-        direction.y = 0f; // Prevent tilting
+        direction.y = 0f;
         if (direction.sqrMagnitude < 0.01f) return;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        targetRotation *= Quaternion.Euler(rotationOffset); // Apply user-defined offset
+        targetRotation *= Quaternion.Euler(rotationOffset);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
@@ -83,7 +83,13 @@ public class HealingInsect : MonoBehaviour
             {
                 frogHP.AddHealth(healingAmount);
             }
+
             Destroy(gameObject);
         }
+    }
+
+    public void SetPathPoints(List<Transform> points)
+    {
+        pathPoints = points;
     }
 }
